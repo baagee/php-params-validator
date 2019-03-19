@@ -1,6 +1,6 @@
 <?php
 /**
- * Desc: 字符串验证
+ * Desc: 身份证验证
  * User: baagee
  * Date: 2019/3/19
  * Time: 下午6:06
@@ -10,8 +10,16 @@ namespace BaAGee\ParamsValidator\Rules;
 
 use BaAGee\ParamsValidator\Base\RuleAbstract;
 
+/**
+ * Class IdCardRule
+ * @package BaAGee\ParamsValidator\Rules
+ */
 class IdCardRule extends RuleAbstract
 {
+    /**
+     * @param $value
+     * @return array|bool|mixed
+     */
     public function check($value)
     {
         $vCity = [

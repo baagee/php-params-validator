@@ -1,6 +1,6 @@
 <?php
 /**
- * Desc: 字符串验证
+ * Desc: 浮点数验证
  * User: baagee
  * Date: 2019/3/19
  * Time: 下午6:06
@@ -10,8 +10,16 @@ namespace BaAGee\ParamsValidator\Rules;
 
 use BaAGee\ParamsValidator\Base\RuleAbstract;
 
+/**
+ * Class FloatRule
+ * @package BaAGee\ParamsValidator\Rules
+ */
 class FloatRule extends RuleAbstract
 {
+    /**
+     * @param $value
+     * @return array|bool|mixed
+     */
     public function check($value)
     {
         if (!is_numeric($value)) {

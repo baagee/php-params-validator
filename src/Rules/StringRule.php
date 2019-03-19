@@ -10,8 +10,16 @@ namespace BaAGee\ParamsValidator\Rules;
 
 use BaAGee\ParamsValidator\Base\RuleAbstract;
 
+/**
+ * Class StringRule
+ * @package BaAGee\ParamsValidator\Rules
+ */
 class StringRule extends RuleAbstract
 {
+    /**
+     * @param $value
+     * @return array|bool|mixed
+     */
     public function check($value)
     {
         $value = strval($value);

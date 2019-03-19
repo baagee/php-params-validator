@@ -1,6 +1,6 @@
 <?php
 /**
- * Desc: 字符串验证
+ * Desc: 枚举验证
  * User: baagee
  * Date: 2019/3/19
  * Time: 下午6:06
@@ -10,8 +10,16 @@ namespace BaAGee\ParamsValidator\Rules;
 
 use BaAGee\ParamsValidator\Base\RuleAbstract;
 
+/**
+ * Class EnumRule
+ * @package BaAGee\ParamsValidator\Rules
+ */
 class EnumRule extends RuleAbstract
 {
+    /**
+     * @param $value
+     * @return array|bool|mixed
+     */
     public function check($value)
     {
         $value  = trim($value);

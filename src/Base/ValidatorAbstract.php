@@ -16,7 +16,5 @@ abstract class ValidatorAbstract
 
     abstract public function addRule($field, $value, $rule, $errorMessage = '');
 
-    abstract public function addRules($field, $value, array $rules);
-
     abstract public function validate();
 }

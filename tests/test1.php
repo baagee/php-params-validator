@@ -11,7 +11,7 @@ $validator = new \BaAGee\ParamsValidator\Validator();
 
 $data = [
     'name'        => 'lotly',
-    'age'         => 20,
+    'age'         => '',
     'sex'         => 1,
     'phone'       => 17878787870,
     'birthday'    => '2019-09-23',
@@ -27,13 +27,14 @@ $data = [
     'ext'         => '{"money":342.3}',
     'bankId'      => '621081257000009900',
     'telephone'   => '010-86551122',
-    'chinese'     => '溜溜',
+    'chinese'     => '溜溜溜溜',
     'alphaDash'   => 'er2454_34t4-knj',
     'plateNo'     => '京Q9087P',
     'alphaNumber' => 'sdgs34t35ad',
     'alpha'       => 'asdgsege',
     'number'      => '234543456',
-    'qq'          => 234543456,
+    'qq'          => '43564764654',
+    'optional'    => '87uhu哈'
 ];
 
 $rules = [
@@ -46,21 +47,22 @@ $rules = [
     'regexp'      => ['regexp|pattern[/[a-z0-9]+/]', 'regexp不合法'],
     'phone'       => ['phone', '手机号不合法'],
     'macAddress'  => ['mac', 'mac地址不合法'],
-    'IdCard'      => ['IdCard', '身份证不合法'],
+    'optional'    => ['string|optional|min[6]', 'optional最小6位'],
+    // 'IdCard'      => ['IdCard', '身份证不合法'],
     'email'       => ['email', '邮箱不合法'],
     'zip'         => ['zip', '邮政编码不合法'],
     'homePage'    => ['url', '个人主页不合法'],
     'ip'          => ['ip', 'IP不合法'],
     'ext'         => ['json|decode', 'Ext Json不合法'],
-    'bankId'      => ['BankId', '银行卡号不合法'],
+    // 'bankId'      => ['BankId', '银行卡号不合法'],
     'telephone'   => ['telephone', '座机号码不合法'],
-    'chinese'     => ['chinese', '不是纯中文'],
+    'chinese'     => ['chinese|min[2]|max[4]', '不是纯中文或者长度不在2-4范围内'],
     'alphaDash'   => ['alphaDash', '不是字母数字—_-'],
     'plateNo'     => ['plateNo', '车牌号不合法'],
     'alphaNumber' => ['alphaNum', '不是字母数字组合'],
     'alpha'       => ['alpha', '不是纯字母'],
-    'number'      => ['number', '不是纯字母'],
-    'qq'          => ['qq', '不是QQ号码'],
+    'number'      => ['number', '不是纯数字'],
+    'qq'          => ['qq|required', '不是QQ号码'],
 ];
 
 try {
@@ -76,3 +78,16 @@ var_dump($res);
 
 echo str_repeat('#', 100) . PHP_EOL;
 
+// 使用单个验证规则
+$stringRule = new \BaAGee\ParamsValidator\Rules\StringRule();
+$res        = $stringRule->setParams(['min' => 6, 'max' => 12])->check('123jk45');
+var_dump($res);
+if ($res === false) {
+    echo '验证失败' . PHP_EOL;
+}
+// 或者
+$res = (new \BaAGee\ParamsValidator\Rules\StringRule(['min' => 6, 'max' => 12]))->check('123jk45');
+var_dump($res);
+if ($res === false) {
+    echo '验证失败' . PHP_EOL;
+}

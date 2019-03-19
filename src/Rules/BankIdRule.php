@@ -1,6 +1,6 @@
 <?php
 /**
- * Desc: 字符串验证
+ * Desc: 银行卡号码验证
  * User: baagee
  * Date: 2019/3/19
  * Time: 下午6:06
@@ -10,6 +10,10 @@ namespace BaAGee\ParamsValidator\Rules;
 
 use BaAGee\ParamsValidator\Base\RuleAbstract;
 
+/**
+ * Class BankIdRule
+ * @package BaAGee\ParamsValidator\Rules
+ */
 class BankIdRule extends RuleAbstract
 {
     /**

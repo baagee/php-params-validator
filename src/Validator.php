@@ -31,18 +31,13 @@ class Validator extends ValidatorAbstract
         if (class_exists($ruleClass)) {
             if (is_subclass_of($ruleClass, RuleAbstract::class)) {
                 $ruleObj       = new $ruleClass($ruleArray);
-                $this->rules[] = array($field, $value, $ruleObj, $errorMessage);
+                $this->rules[] = [$field, $value, $ruleObj, $errorMessage];
             } else {
                 throw new \Exception(sprintf('[%s]没有继承[%s]', $ruleClass, RuleAbstract::class));
             }
         } else {
             throw new \Exception(sprintf('[%s]验证规则类不存在', $ruleClass));
         }
-    }
-
-    public function addRules($field, $value, array $rules)
-    {
-
     }
 
     /**
