@@ -12,9 +12,7 @@ abstract class ValidatorAbstract
 {
     protected $rules = [];
 
-    protected $errorMessage = '';
-
-    abstract public function addRule($field, $value, $rule, $errorMessage = '');
+    abstract public function addRules(string $field, $value, array $rules);
 
     abstract public function validate();
 }

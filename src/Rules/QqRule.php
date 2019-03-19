@@ -22,7 +22,7 @@ class QqRule extends RuleAbstract
      */
     public function check($value)
     {
-        $res = preg_match('/^[1-9]\d{4,12}$/', $value);
+        $res = preg_match('/^[1-9]\d{4,10}$/', $value);
         if ($res === false || $res === 0) {
             return false;
         }
