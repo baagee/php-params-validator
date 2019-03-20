@@ -50,7 +50,8 @@ $data = [
     'alpha'       => 'asdgsege',
     'number'      => '234543456',
     'qq'          => '90876543212',
-    'optional'    => '87uhu哈'
+    'optional'    => '87uhu哈',
+    'service'=>'400-021-9999'
 ];
 
 $rules = [
@@ -68,7 +69,7 @@ $rules = [
     'sex'         => [['enum|allows[1,2]', '性别不合法']],
     'password'    => [['equal|this[password098]', '密码不正确']],
     'regexp'      => [['regexp|pattern[/[a-z0-9]+/]', 'regexp不合法']],
-    'phone'       => [['phone', '手机号不合法']],
+    'phone'       => [['phone|type[mobile]', '手机号不合法']],
     'macAddress'  => [['mac', 'mac地址不合法']],
     'optional'    => [['string|optional|min[6]', 'optional最小6位']],
     'IdCard'      => [
@@ -81,13 +82,14 @@ $rules = [
     'ip'          => [['ip', 'IP不合法']],
     'ext'         => [['json|decode', 'Ext Json不合法']],
     // 'bankId'      => [['BankId', '银行卡号不合法']],
-    'telephone'   => [['telephone', '座机号码不合法']],
+    'telephone'   => [['phone|type[land]', '座机号码不合法']],
     'chinese'     => [['chinese|min[2]|max[4]', '不是纯中文或者长度不在2-4范围内']],
     'alphaDash'   => [['alphaDash', '不是字母数字—_-']],
     'plateNo'     => [['plateNo', '车牌号不合法']],
     'alphaNumber' => [['alphaNum', '不是字母数字组合']],
     'alpha'       => [['alpha', '不是纯字母']],
     'number'      => [['number', '不是纯数字']],
+    'service'      => [['phone|type[service]', '不是服务热线']],
 ];
 try {
     $data = $validator->batchAddRules($data, $rules)->validate();

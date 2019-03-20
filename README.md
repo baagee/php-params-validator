@@ -25,7 +25,6 @@ PlateNoRule.php
 QqRule.php
 RegexpRule.php
 StringRule.php
-TelephoneRule.php
 UrlRule.php
 ZipRule.php
 ```
