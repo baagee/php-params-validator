@@ -7,7 +7,10 @@
  */
 include_once __DIR__ . '/../vendor/autoload.php';
 
-$validator = new \BaAGee\ParamsValidator\Validator();
+// 单例模式 获取validator对象
+$validator  = \BaAGee\ParamsValidator\Validator::getInstance();
+$validator2 = \BaAGee\ParamsValidator\Validator::getInstance();
+var_dump($validator === $validator2);
 
 echo str_repeat('#单一验证', 20) . PHP_EOL;
 try {
