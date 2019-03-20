@@ -11,12 +11,14 @@ $validator = new \BaAGee\ParamsValidator\Validator();
 
 echo str_repeat('#单一验证', 20) . PHP_EOL;
 try {
-    $validator->addRules('order_id', '1234567890', [['number|min[10]|max[10]', '订单号不是10位数字']]);
-    $res = $validator->validate();
+    $res = $validator->addRules('order_id', '1234567890', [
+        ['number', '订单号不是数字'],
+        ['number|min[10]|max[10]', '订单号不是10位数字'],
+    ])->validate();
+    var_dump($res);
 } catch (\BaAGee\ParamsValidator\Base\ParamInvalid $e) {
     die('Error:' . $e);
 }
-var_dump($res);
 
 echo str_repeat('#批量验证', 20) . PHP_EOL;
 
