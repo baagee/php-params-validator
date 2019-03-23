@@ -1,4 +1,5 @@
 # php-params-validator
+[![Build Status](https://www.travis-ci.org/baagee/php-params-validator.svg?branch=master)](https://www.travis-ci.org/baagee/php-params-validator)
 PHP Params Validator Library
 ### PHP参数验证类
 
