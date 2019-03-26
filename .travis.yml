@@ -10,3 +10,4 @@ install:
 script:
 - php ./tests/test1.php
 - php ./tests/test2.php
+- phpunit -v

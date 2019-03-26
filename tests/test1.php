@@ -35,13 +35,13 @@ $data = [
     'password'    => 'password098',
     'regexp'      => 'dsfa78sdgs-',
     'macAddress'  => '00-01-6C-06-A6-29',
-    'IdCard'      => '41282319900909121X',
+    'IdCard'      => '440102198001021230',
     'email'       => '32r2345234@qq.x',
     'zip'         => 240990,
     'homePage'    => 'http://sdfgs.com/asdgfsd?fds=43t&sfds=90',
     'ip'          => '234.32.32.90',
     'ext'         => '{"money":342.3}',
-    'bankId'      => '621081257000009900',
+    'bankId'      => '6228480010200900214',
     'telephone'   => '010-86551122',
     'chinese'     => '溜溜溜溜',
     'alphaDash'   => 'er2454_34t4-knj',
@@ -51,7 +51,7 @@ $data = [
     'number'      => '234543456',
     'qq'          => '90876543212',
     'optional'    => '87uhu哈',
-    'service'=>'400-021-9999'
+    'service'     => '400-021-9999'
 ];
 
 $rules = [
@@ -74,14 +74,14 @@ $rules = [
     'optional'    => [['string|optional|min[6]', 'optional最小6位']],
     'IdCard'      => [
         ['alphaNum|min[18]|max[18]', '身份证不是16位'],
-        // ['IdCard', '身份证不合法'],
+        ['IdCard', '身份证不合法'],
     ],
     'email'       => [['email', '邮箱不合法']],
     'zip'         => [['zip', '邮政编码不合法']],
     'homePage'    => [['url', '个人主页不合法']],
     'ip'          => [['ip', 'IP不合法']],
     'ext'         => [['json|decode', 'Ext Json不合法']],
-    // 'bankId'      => [['BankId', '银行卡号不合法']],
+    'bankId'      => [['BankId', '银行卡号不合法']],
     'telephone'   => [['phone|type[land]', '座机号码不合法']],
     'chinese'     => [['chinese|min[2]|max[4]', '不是纯中文或者长度不在2-4范围内']],
     'alphaDash'   => [['alphaDash', '不是字母数字—_-']],
@@ -89,13 +89,15 @@ $rules = [
     'alphaNumber' => [['alphaNum', '不是字母数字组合']],
     'alpha'       => [['alpha', '不是纯字母']],
     'number'      => [['number', '不是纯数字']],
-    'service'      => [['phone|type[service]', '不是服务热线']],
+    'service'     => [['phone|type[service]', '不是服务热线']],
 ];
 try {
     $data = $validator->batchAddRules($data, $rules)->validate();
     var_dump($data);
 } catch (\BaAGee\ParamsValidator\Base\ParamInvalid $e) {
-    die('Error:' . $e);
+    die('验证参数不合法:' . $e);
+} catch (Exception $e) {
+    die('其他非验证错误：' . $e->getMessage());
 }
 
 echo str_repeat('#使用单个验证规则', 8) . PHP_EOL;
