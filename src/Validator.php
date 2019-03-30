@@ -66,7 +66,7 @@ class Validator extends ValidatorAbstract
     {
         foreach ($rules as $field => $rule) {
             // 单一规则验证
-            $this->addRules($field, $data[$field], $rule);
+            $this->addRules($field, $data[$field] ?? '', $rule);
         }
         return $this;
     }
