@@ -107,11 +107,11 @@ class Validator extends ValidatorAbstract
                     continue;
                 }
                 if (false === $_var) {
-                    throw new ParamInvalid($errorMessage);
+                    throw new ParamInvalid($errorMessage, get_class($validator), $_key, $rule[0]);
                 }
                 $_var = $validator->check($_var['data']);
                 if (false === $_var) {
-                    throw new ParamInvalid($errorMessage);
+                    throw new ParamInvalid($errorMessage, get_class($validator), $_key, $rule[0]);
                 }
                 $_var = $_var['data'];
             }
