@@ -33,26 +33,43 @@ class Validator extends ValidatorAbstract
     public function addRules(string $field, $value, array $rules)
     {
         $ruleObjArray = [];
-        foreach ($rules as $rule) {
-            if (!is_array($rule)) {
-                throw new \Exception('参数验证规则格式错误');
-            }
-            $ruleString   = $rule[0];
-            $errorMessage = (isset($rule[1]) && !empty($rule[1])) ? $rule[1] : self::getDefaultErrorMessage($field);
-            $ruleArray    = array_filter(explode('|', $ruleString));
-            $ruleClass    = __NAMESPACE__ . '\\Rules\\' . ucfirst(array_shift($ruleArray)) . 'Rule';
-            if (class_exists($ruleClass)) {
-                if (is_subclass_of($ruleClass, RuleAbstract::class)) {
-                    $ruleObjArray[] = [new $ruleClass($ruleArray), $errorMessage];
-                } else {
-                    throw new \Exception(sprintf('[%s]没有继承[%s]', $ruleClass, RuleAbstract::class));
+        if (count($rules) === count($rules, COUNT_RECURSIVE)) {
+            // 一维数组
+            $ruleObjArray[] = self::buildRuleObj($field, $rules);
+        } else {
+            foreach ($rules as $rule) {
+                if (!is_array($rule)) {
+                    throw new \Exception('参数验证规则格式错误');
                 }
-            } else {
-                throw new \Exception(sprintf('[%s]验证规则类不存在', $ruleClass));
+                $ruleObjArray[] = self::buildRuleObj($field, $rule);
             }
         }
         $this->rules[$field] = [$value, $ruleObjArray];
         return $this;
+    }
+
+    /**
+     * 生成规则对象
+     * @param string $field 字段名
+     * @param array  $rule  规则
+     * @return array
+     * @throws \Exception
+     */
+    private static function buildRuleObj($field, $rule)
+    {
+        $ruleString   = $rule[0];
+        $errorMessage = (isset($rule[1]) && !empty($rule[1])) ? $rule[1] : self::getDefaultErrorMessage($field);
+        $ruleArray    = array_filter(explode('|', $ruleString));
+        $ruleClass    = __NAMESPACE__ . '\\Rules\\' . ucfirst(array_shift($ruleArray)) . 'Rule';
+        if (class_exists($ruleClass)) {
+            if (is_subclass_of($ruleClass, RuleAbstract::class)) {
+                return [new $ruleClass($ruleArray), $errorMessage];
+            } else {
+                throw new \Exception(sprintf('[%s]没有继承[%s]', $ruleClass, RuleAbstract::class));
+            }
+        } else {
+            throw new \Exception(sprintf('[%s]验证规则类不存在', $ruleClass));
+        }
     }
 
     /**
