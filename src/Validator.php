@@ -83,7 +83,7 @@ class Validator extends ValidatorAbstract
     {
         foreach ($rules as $field => $rule) {
             // 单一规则验证
-            $this->addRules($field, $data[$field] ?? '', $rule);
+            $this->addRules($field, $data[$field] ?? null, $rule);
         }
         return $this;
     }
@@ -98,20 +98,23 @@ class Validator extends ValidatorAbstract
         $this->rules = [];
         $filterData  = [];
         foreach ($arrRule as $_key => $rule) {
-            $_var        = $rule[0];
+            //用户输入的值
+            $_var = $rule[0];
+            // 多个验证器
             $_validators = $rule[1];
+            // 遍历每个验证器   去验证数据
             foreach ($_validators as $_validator) {
-                list($validator, $errorMessage) = $_validator;
-                $_var = $validator->beforeCheck($_var);
+                list($validatorRule, $errorMessage) = $_validator;
+                $_var = $validatorRule->beforeCheck($_var);
                 if (null === $_var) {
                     continue;
                 }
                 if (false === $_var) {
-                    throw new ParamInvalid($errorMessage, get_class($validator), $_key, $rule[0]);
+                    throw new ParamInvalid($errorMessage, get_class($validatorRule), $_key, $rule[0]);
                 }
-                $_var = $validator->check($_var['data']);
+                $_var = $validatorRule->check($_var['data']);
                 if (false === $_var) {
-                    throw new ParamInvalid($errorMessage, get_class($validator), $_key, $rule[0]);
+                    throw new ParamInvalid($errorMessage, get_class($validatorRule), $_key, $rule[0]);
                 }
                 $_var = $_var['data'];
             }

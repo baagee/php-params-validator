@@ -27,7 +27,7 @@ echo str_repeat('#批量验证', 20) . PHP_EOL;
 
 $data = [
     'name'        => 'lotly',
-    'age'         => '',
+    'age'         => 18,
     'sex'         => 1,
     'phone'       => 17878787870,
     'birthday'    => '2019-09-23',
@@ -51,7 +51,8 @@ $data = [
     'number'      => '234543456',
     'qq'          => '90876543212',
     'optional'    => '87uhu哈',
-    'service'     => '400-021-9999'
+    'service'     => '400-021-9999',
+    'status'      => 0,
 ];
 
 $rules = [
@@ -90,6 +91,8 @@ $rules = [
     'alpha'       => ['alpha', '不是纯字母'],
     'number'      => ['number', '不是纯数字'],
     'service'     => ['phone|type[service]', '不是服务热线'],
+    'status'      => ['integer|required', '状态不合法'],
+    'status2'     => ['string|optional|default[]', '状态2不合法'],
 ];
 try {
     $data = $validator->batchAddRules($data, $rules)->validate();

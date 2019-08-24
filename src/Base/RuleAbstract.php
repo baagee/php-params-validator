@@ -57,15 +57,15 @@ abstract class RuleAbstract
      */
     public function beforeCheck($value)
     {
-        if (empty($value) && isset($this->params['default'])) {
+        if (is_null($value) && isset($this->params['default'])) {
             // 设置默认值
             $value = $this->params['default'];
         }
-        if (empty($value) && isset($this->params['optional'])) {
+        if (is_null($value) && isset($this->params['optional'])) {
             // 如果是可选的但是值为空就跳过验证
             return null;
         }
-        if (empty($value) && isset($this->params['required'])) {
+        if (is_null($value) && isset($this->params['required'])) {
             // 如果值为空 但是是必须的就直接返回验证失败
             return false;
         }
