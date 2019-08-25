@@ -23,7 +23,9 @@ class EnumRule extends RuleAbstract
     public function check($value)
     {
         $value  = trim($value);
-        $allows = array_filter(explode(',', $this->params['allows']));
+        $allows = array_filter(explode(',', $this->params['allows']), function ($v) {
+            return $v !== '';
+        });
         if (!in_array($value, $allows)) {
             return false;
         }
