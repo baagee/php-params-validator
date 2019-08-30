@@ -23,15 +23,15 @@ class NumberRule extends RuleAbstract
     public function check($value)
     {
         $value = strval($value);
-        $res   = preg_match('/^([0-9])+$/i', $value);
-        if ($res === false || $res === 0) {
+        $res   = is_numeric($value);
+        if ($res === false) {
             return false;
         }
         $length = strlen($value);
-        if (isset($this->params['min']) && $length < $this->params['min']) {
+        if (isset($this->params['min']) && $length < abs($this->params['min'])) {
             return false;
         }
-        if (isset($this->params['max']) && $length > $this->params['max']) {
+        if (isset($this->params['max']) && $length > abs($this->params['max'])) {
             return false;
         }
         return ["data" => $value];
