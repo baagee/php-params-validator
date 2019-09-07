@@ -22,6 +22,11 @@ class EqualRule extends RuleAbstract
      */
     public function check($value)
     {
+        if (isset($this->params['lower'])) {
+            // 是否转为小写比较
+            $value                = strtolower($value);
+            $this->params['this'] = strtolower($this->params['this']);
+        }
         if ($value !== $this->params['this']) {
             return false;
         }

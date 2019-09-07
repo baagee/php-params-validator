@@ -29,7 +29,7 @@ class test1Test extends \PHPUnit\Framework\TestCase
 
         $data = [
             'name'        => 'lotly',
-            'age'         => '',
+            'age'         => '22',
             'sex'         => 1,
             'phone'       => 17878787870,
             'birthday'    => '2019-09-23',
@@ -52,8 +52,9 @@ class test1Test extends \PHPUnit\Framework\TestCase
             'alpha'       => 'asdgsege',
             'number'      => '234543456',
             'qq'          => '90876543212',
-            'optional'    => '',
-            'service'     => '400-021-9999'
+            'optional'    => 'dgfsgsg',
+            'service'     => '400-021-9999',
+            'equal'       => 'EQuAl',
         ];
 
         $rules = [
@@ -92,6 +93,7 @@ class test1Test extends \PHPUnit\Framework\TestCase
             'alpha'       => ['alpha', '不是纯字母'],
             'number'      => ['number', '不是纯数字'],
             'service'     => ['phone|type[service]', '不是服务热线'],
+            'equal'=>['equal|this[equal]|lower']
         ];
         try {
             $data = $validator->batchAddRules($data, $rules)->validate();
