@@ -42,6 +42,8 @@ class test1Test extends \PHPUnit\Framework\TestCase
             'zip'         => 240990,
             'homePage'    => 'http://sdfgs.com/asdgfsd?fds=43t&sfds=90',
             'ip'          => '234.32.32.90',
+            'ip1'          => '234.32.32.90',
+            'ip2'          => '234.32.32.90',
             'ext'         => '{"money":342.3}',
             'bankId'      => '6228480010200900214',
             'telephone'   => '010-86551122',
@@ -82,7 +84,9 @@ class test1Test extends \PHPUnit\Framework\TestCase
             'email'       => ['email', '邮箱不合法'],
             'zip'         => ['zip', '邮政编码不合法'],
             'homePage'    => ['url', '个人主页不合法'],
-            'ip'          => ['ip', 'IP不合法'],
+            'ip'          => ['ip|start[234.32.32.1]|end[234.32.32.128]', 'IP不合法'],
+            // 'ip1'          => ['ip|start[234.32.32.1]|end[234.32.32.89]', 'IP1不合法'],
+            // 'ip2'          => ['ip|start[234.32.32.100]|end[234.32.32.189]', 'IP2不合法'],
             'ext'         => ['json|decode', 'Ext Json不合法'],
             'bankId'      => ['BankId', '银行卡号不合法'],
             'telephone'   => ['phone|type[land]', '座机号码不合法'],
@@ -99,7 +103,7 @@ class test1Test extends \PHPUnit\Framework\TestCase
             $data = $validator->batchAddRules($data, $rules)->validate();
             // var_dump($data);
         } catch (\BaAGee\ParamsValidator\Base\ParamInvalid $e) {
-            die('Error:' . $e);
+            print_r('Error:' . $e);
         }
 
         // echo str_repeat('#使用单个验证规则', 8) . PHP_EOL;
