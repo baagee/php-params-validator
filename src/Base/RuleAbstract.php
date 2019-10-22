@@ -69,6 +69,13 @@ abstract class RuleAbstract
             // 如果值为空 但是是必须的就直接返回验证失败
             return false;
         }
+        if (!is_null($value) && isset($this->params['required'])) {
+            // 不为空 但是strlen为0 返回false
+            $value = strval($value);
+            if (strlen($value) === 0) {
+                return false;
+            }
+        }
         return ["data" => $value];
     }
 
